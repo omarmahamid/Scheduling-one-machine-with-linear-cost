@@ -7,12 +7,17 @@ import java.util.stream.Collectors;
 public class ScheduleAlgorithm implements Schedule{
 
 
-    @Override
+   @Override
     public List<Job> optimizedPermutation(List<Job> jobs) {
 
-        return jobs
+        List<Job> sortedJobs = jobs
                 .stream()
-                .sorted(Comparator.comparingInt(o -> (o.getPenalty().getCoefficient() / o.getTime())))
+                .sorted(Comparator.comparingDouble(o -> (o.getPenalty().getCoefficient() / o.getTime())))
                 .collect(Collectors.toList());
+
+        Collections.reverse(sortedJobs);
+
+        return sortedJobs;
+
     }
 }
